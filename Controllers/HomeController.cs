@@ -8,6 +8,7 @@ namespace Angular_Net_Template.Controllers
 {
     public class HomeController : Controller
     {
+        //Start Here
         public IActionResult Index()
         {
             return View();
