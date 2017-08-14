@@ -1,5 +1,5 @@
 {
-  "name": "Angular_Net_Template",
+  "name": "PharmacyProject",
   "version": "0.0.0",
   "scripts": {
     "test": "karma start ClientApp/test/karma.conf.js"

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Angular_Net_Template
+namespace PharmacyProject
 {
     public class Program
     {
