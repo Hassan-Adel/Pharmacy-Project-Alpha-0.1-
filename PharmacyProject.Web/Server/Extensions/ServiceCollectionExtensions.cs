@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using PharmacyProject.DAL.Models;
 using PharmacyProject.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace PharmacyProject.Server.Extensions
 {
@@ -46,6 +47,36 @@ namespace PharmacyProject.Server.Extensions
             .AddEntityFrameworkStores<ApplicationDbContext, int>()
             .AddDefaultTokenProviders();
 
+            return services;
+        }
+
+        //public static IServiceCollection AddCustomDbContext(this IServiceCollection services)
+        //{
+        //    // Add framework services.
+        //    string useSqLite = Startup.Configuration["Data:useSqLite"];
+        //    string SqlLiteConnectionString = Startup.Configuration["Data:SqlLiteConnectionString"];
+        //    string SqlServerConnectionString = Startup.Configuration["Data:SqlServerConnectionString"];
+        //    //DbContextOptionsBuilder<ApplicationDbContext> options2 = ApplicationDbContext.ReturnOptions(useSqLite, SqlLiteConnectionString, SqlServerConnectionString);
+        //    services.AddDbContext<ApplicationDbContext>(ApplicationDbContext.ReturnOptions(useSqLite, SqlLiteConnectionString, SqlServerConnectionString));
+        //    return services;
+        //}
+
+        public static IServiceCollection AddCustomDbContext(this IServiceCollection services)
+        {
+            // Add framework services.
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                string useSqLite = Startup.Configuration["Data:useSqLite"];
+                if (useSqLite.ToLower() == "true")
+                {
+                    options.UseSqlite(Startup.Configuration["Data:SqlLiteConnectionString"]);
+                }
+                else
+                {
+                    options.UseSqlServer(Startup.Configuration["Data:SqlServerConnectionString"], b => b.MigrationsAssembly("PharmacyProject"));
+                }
+                options.UseOpenIddict();
+            });
             return services;
         }
     }

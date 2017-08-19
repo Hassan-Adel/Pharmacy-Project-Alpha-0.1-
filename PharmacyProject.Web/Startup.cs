@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using PharmacyProject.Server.Extensions;
 
 namespace PharmacyProject
 {
@@ -34,12 +35,17 @@ namespace PharmacyProject
             }
             Configuration = builder.Build();
         }
+        public static IConfigurationRoot Configuration { get; set; }
 
-        public IConfigurationRoot Configuration { get; }
+        //public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCustomDbContext();
+
+            services.AddCustomIdentity();
+
             // Add framework services.
             services.AddMvc();
         }
