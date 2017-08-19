@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using PharmacyProject.DAL.Models;
+using System;
+using OpenIddict.EntityFrameworkCore;
 
 namespace PharmacyProject.DAL
 {
@@ -8,8 +11,10 @@ namespace PharmacyProject.DAL
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
-        //public DbSet<Language> Languages { get; set; }
-        
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Content> Content { get; set; }
+        public DbSet<ContentText> ContentText { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 
@@ -19,6 +24,26 @@ namespace PharmacyProject.DAL
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+        }//DbContextOptions<TContext>
+        
+        public static Action<DbContextOptionsBuilder> ReturnOptions(string useSqLite, string SqlLiteConnectionString, string SqlServerConnectionString)
+        {
+            // Add framework services.
+            Action<DbContextOptionsBuilder> OptionsAction = null;
+            DbContextOptionsBuilder<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>();
+            if (useSqLite.ToLower() == "true")
+                {
+                    options.UseSqlite(SqlLiteConnectionString);
+                }
+                else
+                {
+                    options.UseSqlServer(SqlServerConnectionString, b => b.MigrationsAssembly("PharmacyProject"));
+                }
+                options.UseOpenIddict();
+            OptionsAction(options);
+            //Action<DbContextOptionsBuilder<ApplicationDbContext>> optionActions = new Action<DbContextOptionsBuilder<ApplicationDbContext>> (DbContextOptionsBuilder<ApplicationDbContext>());
+            return OptionsAction;
         }
+
     }
 }
