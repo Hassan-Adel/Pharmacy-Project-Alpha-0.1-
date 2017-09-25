@@ -63,6 +63,8 @@ namespace PharmacyProject.DAL
             {
                 _context.Languages.Add(new Language { Locale = "en", Description = "English" });
                 _context.SaveChanges();
+                _context.Languages.Add(new Language { Locale = "ar", Description = "العربية" });
+                _context.SaveChanges();
                 _context.Languages.Add(new Language { Locale = "fr", Description = "Frensh" });
                 _context.SaveChanges();
             }
@@ -88,26 +90,33 @@ namespace PharmacyProject.DAL
             if (!_context.ContentText.Any())
             {
                 _context.ContentText.Add(new ContentText { Text = "Site title", LanguageId = 1, ContentId = 1 });
-                _context.ContentText.Add(new ContentText { Text = "Titre du site", LanguageId = 2, ContentId = 1 });
+                _context.ContentText.Add(new ContentText { Text = "عنوان الموقع", LanguageId = 2, ContentId = 1 });
+                _context.ContentText.Add(new ContentText { Text = "Titre du site", LanguageId = 3, ContentId = 1 });
 
                 _context.ContentText.Add(new ContentText { Text = "Home", LanguageId = 1, ContentId = 2 });
-                _context.ContentText.Add(new ContentText { Text = "Accueil", LanguageId = 2, ContentId = 2 });
+                _context.ContentText.Add(new ContentText { Text = "الرئيسية", LanguageId = 2, ContentId = 2 });
+                _context.ContentText.Add(new ContentText { Text = "Accueil", LanguageId = 3, ContentId = 2 });
 
                 _context.ContentText.Add(new ContentText { Text = "Examples", LanguageId = 1, ContentId = 3 });
-                _context.ContentText.Add(new ContentText { Text = "Exemples", LanguageId = 2, ContentId = 3 });
+                _context.ContentText.Add(new ContentText { Text = "أمثلة", LanguageId = 2, ContentId = 3 });
+                _context.ContentText.Add(new ContentText { Text = "Exemples", LanguageId = 3, ContentId = 3 });
 
                 _context.ContentText.Add(new ContentText { Text = "Login", LanguageId = 1, ContentId = 4 });
-                _context.ContentText.Add(new ContentText { Text = "S'identifier", LanguageId = 2, ContentId = 4 });
+                _context.ContentText.Add(new ContentText { Text = "دخول", LanguageId = 2, ContentId = 4 });
+                _context.ContentText.Add(new ContentText { Text = "S'identifier", LanguageId = 3, ContentId = 4 });
 
                 _context.ContentText.Add(new ContentText { Text = "Logout", LanguageId = 1, ContentId = 5 });
-                _context.ContentText.Add(new ContentText { Text = "Connectez - Out", LanguageId = 2, ContentId = 5 });
+                _context.ContentText.Add(new ContentText { Text = "خروج", LanguageId = 2, ContentId = 5 });
+                _context.ContentText.Add(new ContentText { Text = "Connectez - Out", LanguageId = 3, ContentId = 5 });
 
                 _context.ContentText.Add(new ContentText { Text = "Register", LanguageId = 1, ContentId = 6 });
-                _context.ContentText.Add(new ContentText { Text = "registre", LanguageId = 2, ContentId = 6 });
+                _context.ContentText.Add(new ContentText { Text = "التسجيل", LanguageId = 2, ContentId = 6 });
+                _context.ContentText.Add(new ContentText { Text = "registre", LanguageId = 3, ContentId = 6 });
 
                 _context.ContentText.Add(new ContentText { Text = "Admin", LanguageId = 1, ContentId = 7 });
-                _context.ContentText.Add(new ContentText { Text = "Admin", LanguageId = 2, ContentId = 7 });
-
+                _context.ContentText.Add(new ContentText { Text = "أدمن", LanguageId = 2, ContentId = 7 });
+                _context.ContentText.Add(new ContentText { Text = "Admin", LanguageId = 3, ContentId = 7 });
+                
                 _context.SaveChanges();
             }
         }
