@@ -49,6 +49,8 @@ namespace PharmacyProject
 
             services.AddCustomOpenIddict();
 
+            services.AddMemoryCache();
+
             services.AddMvc();
         }
 
