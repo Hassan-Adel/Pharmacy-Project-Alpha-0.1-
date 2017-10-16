@@ -40,6 +40,7 @@
     <ProjectReference Include="..\PharmacyProject.DAL\PharmacyProject.DAL.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ClientApp\app\components\shared\forms\" />
     <Folder Include="ClientApp\app\core\auth-token\" />
     <Folder Include="ClientApp\app\core\profile\" />
   </ItemGroup>
