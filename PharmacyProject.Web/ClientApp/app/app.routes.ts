@@ -2,12 +2,14 @@
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { LoginModule } from './components/login/login.module'
+//import { LoginModule } from 'app/'
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     // Lazy async modules
     //{
-    //    path: 'login', loadChildren: './+login/login.module#LoginModule'
+    //    path: 'login', loadChildren: './components/login/login.module#LoginModule'
     //},
     {
         path: 'home', component: HomeComponent
