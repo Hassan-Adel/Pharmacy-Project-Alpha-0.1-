@@ -14,7 +14,7 @@
     "@angular/platform-browser": "4.1.2",
     "@angular/platform-browser-dynamic": "4.1.2",
     "@angular/platform-server": "4.1.2",
-    "@angular/router": "4.1.2",
+    "@angular/router": "4.3.0",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.28",
     "angular2-jwt": "0.2.3",
     "@types/node": "7.0.18",
@@ -65,6 +65,7 @@
     "karma-cli": "1.0.1",
     "karma-jasmine": "1.1.0",
     "karma-webpack": "2.0.3",
+    "ng-router-loader": "2.1.0",
     "ngrx-store-freeze": "0.1.9"
   }
 }
