@@ -1,7 +1,12 @@
 const path = require('path');
+const helpers = require('./helpers');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+
+const AOT = helpers.hasNpmFlag('aot');
+console.log("==========Is AOT Build = " + AOT + " ============")
 
 module.exports = (env) => {
     // Configuration in common to both client-side and server-side bundles
@@ -9,17 +14,57 @@ module.exports = (env) => {
     const sharedConfig = {
         stats: { modules: false },
         context: __dirname,
-        resolve: { extensions: [ '.js', '.ts' ] },
+        resolve: {
+            /*
+       * An array of extensions that should be used to resolve modules.
+       *
+       * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
+       */
+            extensions: ['.ts', '.js', '.json', '.scss', '.css', '.html'],
+
+            // An array of directory names to be resolved to the current directory
+            modules: [helpers.root('ClientApp'), 'node_modules']
+        },
         output: {
             filename: '[name].js',
             publicPath: '/dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
         },
+        entry: {
+            'main': AOT ? './ClientApp/main.aot.ts' : './ClientApp/boot-client.ts'
+        },
+        //output: {
+        //    path: path.join(__dirname, '../wwwroot', 'dist'),
+        //    publicPath: '/dist/'
+        //},
         module: {
             rules: [
-                { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader'] },
-                { test: /\.html$/, use: 'html-loader?minimize=false' },
-                { test: /\.css$/, use: [ 'to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] },
-                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+                {
+                    test: /\.ts$/, exclude: [/\.(spec|e2e)\.ts$/],
+                    use: [
+                        {
+                            loader: 'ng-router-loader',
+                            options: {
+                                loader: 'async-import',
+                                genDir: 'compiled',
+                                aot: AOT
+                            }
+                        },
+                        'awesome-typescript-loader',
+                        'angular2-template-loader'
+                    ]
+                },
+                //{
+                //    test: /\.css$/, loader: ExtractTextPlugin.extract({
+                //        fallback: "style-loader",
+                //        use: "css-loader"
+                //    })
+                //},
+                { test: /\.css$/, use: ['to-string-loader', 'css-loader'] },
+                { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
+                { test: /\.html$/, use: 'html-loader' },
+                { test: /\.json$/, use: 'json-loader' },
+                { test: /\.(jpg|png|gif)$/, use: 'file-loader' },
+                { test: /\.(woff|woff2|eot|ttf|svg)$/, use: 'file-loader' }
             ]
         },
         plugins: [new CheckerPlugin()]

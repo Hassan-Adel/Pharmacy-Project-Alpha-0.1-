@@ -10,6 +10,10 @@ using PharmacyProject.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using AspNet.Security.OpenIdConnect.Primitives;
+using PharmacyProject.Server.Services;
+using PharmacyProject.Server.Services.Abstract;
+using PharmacyProject.Server.Filters;
+using Microsoft.Extensions.Configuration;
 
 namespace PharmacyProject.Server.Extensions
 {
@@ -104,6 +108,17 @@ namespace PharmacyProject.Server.Extensions
             //          resource: "AuthorizationServer.Certificate.pfx",
             //          password: "OpenIddict");
 
+            return services;
+        }
+
+        public static IServiceCollection RegisterCustomServices(this IServiceCollection services)
+        {
+            // New instance every time, only configuration class needs so its ok
+            services.Configure<SmsSettings>(options => Startup.Configuration.GetSection("SmsSettingsTwillio").Bind(options));
+            services.AddTransient<UserResolverService>();
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<ISmsSender, SmsSender>();
+            services.AddScoped<ApiExceptionFilter>();
             return services;
         }
 

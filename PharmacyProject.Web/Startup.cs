@@ -51,6 +51,8 @@ namespace PharmacyProject
 
             services.AddMemoryCache();
 
+            services.RegisterCustomServices();
+
             services.AddMvc();
         }
 

@@ -8,11 +8,14 @@ import { LoginModule } from './components/login/login.module'
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     // Lazy async modules
-    //{
-    //    path: 'login', loadChildren: './components/login/login.module#LoginModule'
-    //},
+    {
+        path: 'login', loadChildren: './components/login/login.module#LoginModule'
+    },
     {
         path: 'home', component: HomeComponent
+    },
+    {
+        path: 'homexwx', component: HomeComponent
     },
     {
         path: 'counter', component: CounterComponent
